@@ -1,0 +1,43 @@
+\section{Evaluation}
+\label{evaluation}
+Here is the example area.
+
+\begin{lstlisting}[language=Haskell]
+    data Exp = E_BOOL Bool | E_NAT Int 
+                    | E_STR String | E_CONST String  
+                    | E_VAR Var   | E_CONTEXT 
+                    | E_LAMBDA Var Exp | E_THUNK Exp 
+                    | E_OP Op Exp Exp  | E_UOP UOp Exp                    
+                    | E_IF Exp Exp Exp | E_APP Exp Exp                   
+                    | E_DEFER Var Exp | E_ASSERT Exp Exp                  
+                    | E_LET Var Exp Exp                   
+                    | E_RECORD [(FieldName,Exp)] 
+                    | E_FIELD Exp FieldName
+                    deriving (Ord,Eq)
+    
+    data Op = OP_PLUS | OP_MINUS
+                    | OP_LESS | OP_GREATER 
+                    | OP_EQ | OP_AND | OP_OR | OP_IMPLY
+                    deriving (Ord,Eq)
+    
+    data UOp = OP_NOT   deriving (Ord,Eq) 
+    
+    data FieldName = FIELD_NAME String  deriving(Ord,Eq)
+    data Var = VAR String deriving (Ord,Eq)
+    
+\end{lstlisting}
+
+\begin{verbatim}
+ ---------
+ let name =  
+     level a in
+     policy a: !(context = alice) then bottom in < "Anonymous" | "Alice" >(a)
+ 
+ let msg = "Author is " + name
+ 
+ print {alice} msg
+ print {bob} msg
+ ------
+\end{verbatim}
+
+

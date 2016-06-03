@@ -1,0 +1,23 @@
+\section{Properties}
+\label{property}
+
+ \begin{lemma}
+     $\mathrm{(Concrete Function)}$. if $\upsilon$ is a value of type $\tau_1\rightarrow\tau_2$, then $\upsilon= \lambda x:\tau_1.e$, where e has type $\tau_2$.
+    \end{lemma}
+ \begin{proof}
+     According to the $\lambdaJ$ syntax, we can get Lemma 1 immediately.
+    \end{proof}
+ 
+ \begin{theorem}
+     $\mathrm{(Progress).}$ Suppose $e$ is a closed, well-typed expression. Then $e$ is either a value $\upsilon$ or there is some $e'$ such that $\vdash\left\langle\phi ,\phi ,e\right\rangle\rightarrow\left\langle\Sigma',\Delta',e'\right\rangle$.
+ \end{theorem}   
+    \begin{proof}
+        we can ...
+    \end{proof}
+    
+    \begin{theorem}
+        $\mathrm{(Preservision).}$ If $\Gamma\vdash e:\tau\delta$ and $e\rightarrow e'$, then $\Gamma\vdash e':\tau\delta$. 
+    \end{theorem}
+    \begin{proof}
+        we can ...
+    \end{proof}

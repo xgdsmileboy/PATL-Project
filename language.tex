@@ -1,0 +1,84 @@
+\section{Language Design}
+\label{language}
+ \subsection{Jeeves}
+ Here we discribe Jeeves syntax in Figure \ref{jeeve-syntax}. Totally, it contains three types 
+   \begin{figure}[!htbp]
+   \fbox{%  
+       \parbox{\textwidth}{%  
+           \begin{center}  
+                \begin{align*}
+                   Level~:: = ~ & {\begin{aligned}[t]
+                       & ~ \bot~|~\top\\                      
+                       \end{aligned}}\\
+                  Exp~:: = ~ & {\begin{aligned}[t]
+                           & ~ \upsilon~|~Exp_1~(op)~Exp_2
+                           \\
+                      ~|~& ~ \textbf{if}~ Exp_1~\textbf{then}~Exp_t~\textbf{else}~Exp_f
+                      \\ 
+                      ~|~& ~ Exp_1~Exp_2
+                      \\
+                      ~|~& ~ \left\langle Exp_{\bot}~|~Exp_{\top}\right\rangle(\ell)
+                      \\
+                      ~|~& ~ \textbf{level}~\ell~\textbf{in}~Exp
+                      \\
+                      ~|~& ~ \textbf{policy}~\ell:~Exp_p~\textbf{then}~Level~\textbf{in}~Exp
+                      \end{aligned}}\\
+                Stmt~:: = ~ & {\begin{aligned}[t]
+                    & ~ \textbf{let}~x:\tau~=~Exp
+                    \\
+                    ~|~& ~ \textbf{print}~\{Exp_c\}~Exp
+                    \end{aligned}}
+                \end{align*}
+            \end{center}  
+        }%  
+    }
+    \caption{Jeeves syntax}
+    \label{jeeve-syntax}
+\end{figure}
+\subsection{Lambda J}
+    Here we discribe the $\lambdaJ$ language show in Figure \ref{lambdaj-syntax}.\\
+   \begin{figure}[!htbp]
+   \fbox{%  
+       \parbox{\textwidth}{%  
+           \begin{center}  
+               \begin{align*}
+                   c~:: = ~ & {\begin{aligned}[t]
+                                & ~ n~|~b~|~\lambda x:\tau .e~|~record~x\bar{:}\upsilon
+                                \\
+                           ~|~& ~ \textbf{error}~|~()
+                               \end{aligned}}\\
+           \sigma~:: = ~ & {\begin{aligned}[t]
+                                & ~ x~|~\textbf{contex}~\tau
+                                \\
+                          ~|~& ~ c_1~(op)~\sigma_2~|~\sigma_1~(op)~c_2
+                          \\ 
+                          ~|~& ~ \sigma_1~(op)~\sigma_2
+                          \\
+                          ~|~& ~ \textbf{if}~\sigma~\textbf{then}~\upsilon_t~\textbf{else}~\upsilon_f
+                           \end{aligned}}\\
+           \upsilon~:: = ~ & {\begin{aligned}[t]
+                               & ~ c~|~\sigma
+                               \end{aligned}}\\
+                      e~:: = ~ & {\begin{aligned}[t]
+                               & ~ \upsilon~|~e_1~(op)~e_2
+                            \\
+                            ~|~& ~ \textbf{if}~e_1~\textbf{then}~e_t~\textbf{else}~e_f~|~e_1~e_2
+                            \\
+                            ~|~& ~ \textbf{let}~x:\tau = e_1~\textbf{in}~e_2
+                            \\
+                            ~|~& ~ \textbf{let rec}~f:\tau = e_1~\textbf{in}~e_2
+                            \\
+                            ~|~& ~ \textbf{defer}~x:\tau\{e\}~\textbf{defaut}~\upsilon_d
+                            \\
+                            ~|~& ~ \textbf{assert}~e
+                            \\
+                            ~|~& ~ \textbf{concretize}~e~\textbf{with}~\upsilon_c
+                    \end{aligned}}
+                \end{align*}
+            \end{center}  
+        }%  
+    }
+    \caption{$\lambdaJ$ syntax}
+    \label{lambdaj-syntax}
+    \end{figure}
+   
