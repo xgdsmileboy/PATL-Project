@@ -77,7 +77,48 @@ Here is the semantics...
                         \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_f \right \rangle 
                     }{
                         \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if}~\sigma~\textbf{then}~\upsilon_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{if}~\sigma~\textbf{then}~\upsilon_t~\textbf{else}~e'_f \right \rangle 
-                    }~~~~\scriptsize{\textrm{E-CONDSYMF}}$                    
+                    }~~~~\scriptsize{\textrm{E-CONDSYMF}}$          
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e \right \rangle \rightarrow \left \langle \Sigma', \Delta', e' \right \rangle 
+                      }{
+                          \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{defer}~x:\tau\{e\}~\textbf{default}~\upsilon_d \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{defer}~x:\tau\{e'\}~\textbf{default}~\upsilon_d \right \rangle 
+                      }~~~~\scriptsize{\textrm{E-DEFERCONSTRAINT}}$       
+                    \\
+                    $\frac{
+                        fresh~x'
+                     }{
+                         \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{defer}~x:\tau\{e\}~\textbf{default}~\upsilon_d \right \rangle \rightarrow \left \langle \Sigma\cup\{\mathscr{G}\Rightarrow\upsilon_c[x\mapsto x']\}, \Delta\cup\{\mathscr{G}\Rightarrow x'=\upsilon_d \}, x' \right \rangle 
+                     }~~~~\scriptsize{\textrm{E-DEFER}}$       
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e \right \rangle \rightarrow \left \langle \Sigma', \Delta', e' \right \rangle 
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{assert}~e \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{assert}~e' \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-ASSERTCONSTRAINT}} $
+                    \\
+                    $\frac{ 
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{assert}~\upsilon \right \rangle \rightarrow \left \langle \Sigma\cup\{\mathscr{G}\Rightarrow\upsilon\}, \Delta, () \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-ASSERT}}$   
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e \right \rangle \rightarrow \left \langle \Sigma', \Delta', e' \right \rangle 
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{concretize}~e~\textbf{with}~\upsilon_c \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{concretize}~e'~\textbf{with}~\upsilon_c \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-CONCRETIZEEXP}}$   
+                    \\
+                    $\frac{
+                        \textrm{MODLE}( \Delta, \Sigma\cup\{\mathscr{G}\cap\textbf{context}=\upsilon_c \})=\mathscr{M}~~~c=\mathscr{M}[[\upsilon_\nu]]
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{concretize}~\upsilon_\nu~\textbf{with}~\upsilon_c \right \rangle \rightarrow \left \langle \Sigma, \Delta, c \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-CONCRETIZESAT}}$   
+                    \\
+                    $\frac{
+                        \textrm{MODLE}( \Delta, \Sigma\cup\{\mathscr{G}\cap\textbf{context}=\upsilon_c \})=\textrm{UNSAT}
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{concretize}~\upsilon_\nu~\textbf{with}~\upsilon_c \right \rangle \rightarrow \left \langle \Sigma, \Delta, \textbf{error} \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-CONCRETIZEUNSAT}}$   
 %                }
            \end{flushright}
         }
@@ -85,4 +126,125 @@ Here is the semantics...
 \end{spacing}
     \caption{Dynamic semantics for $\lambdaJ$.}
     \label{dynamic-sem-lambdaj}
+\end{figure}
+
+   \begin{figure}[!htbp]
+       \fbox{%  
+           \parbox{\textwidth}{%  
+               \begin{center}  
+                   \begin{align*}
+                   \delta~:: = ~ & {\begin{aligned}[t]
+                       & ~ \textbf{concretize}~|~\textbf{sym}
+                       ~~~~~~~~
+                       ~~~~~~~~~~~~~~~\textrm{determinism tag}                  
+                       \end{aligned}}\\
+                    \beta~:: = ~ & {\begin{aligned}[t]
+                        & ~ \textbf{int}_c~|~\textbf{bool}_c~|~\textbf{unit}~| ~ \textbf{int}~|~\textbf{bool}
+                        ~~~~~~~~~~~~~~~\textrm{base type}
+                        \end{aligned}}\\
+                    \tau~:: = ~ & {\begin{aligned}[t]
+                        & ~ \beta~|~\tau_1 \stackrel{nr}{\longrightarrow} \tau_2~|~\tau_1\rightarrow\tau_2
+                        ~~~~~~~~~~~~~~~~~~~
+                        ~~~~~~~~~~~~~~~\textrm{type}
+                        \end{aligned}}
+                    \end{align*}
+                \end{center}  
+            }%  
+        }
+        \caption{$\lambdaJ$ types}
+        \label{lambdaj-types}
+    \end{figure}
+
+\begin{figure}
+    \begin{spacing}{2.0}
+        \fbox{
+            \parbox{\textwidth}{
+                \begin{center}
+                    \scriptsize{
+                        $ \boxed{\tau_1<:\tau_2}$ }
+                    \\
+                    $ \frac{
+                    }{
+                        \tau<:\tau
+                    }~~~~\tiny{\textrm{S-REFLEXIVE}}
+                    ~~~~~
+                    \frac{
+                    }{
+                        \textbf{int}_c<:\textbf{int}
+                    }~~~~\tiny{\textrm{S-INT}}
+                    ~~~~~
+                    \frac{
+                    }{
+                    \textbf{bool}_c<:\textbf{bool}
+                    }~~~~\tiny{\textrm{S-BOOL}}$
+                    \\
+                    $\frac{
+                    }{
+                    \tau_1 \stackrel{nr}{\longrightarrow} \tau_2<:\tau_1\rightarrow\tau_2
+                    }~~~~\tiny{\textrm{S-RECFUN}}
+                    ~~~~~
+                    \frac{
+                        \tau'_1<:\tau_1~~\tau_2<:\tau'_2
+                    }{
+                    \tau_1 \rightarrow \tau_2 <: \tau'_1 \rightarrow \tau'_2
+                    }~~~~\tiny{\textrm{S-FUN}} $
+                    \\
+                    \scriptsize{
+                        $ \boxed{\textbf{rep}~\tau}$}
+                    \\
+                    $ \frac{
+                        \textbf{rep}~\tau~~~\tau'<:\tau
+                    }{
+                        \textbf{rep}~\tau
+                    }~~~~\tiny{\textrm{OK-SUBTYPE}}
+                    ~~~~~
+                    \frac{
+                    }{
+                        \textbf{rep}~\beta
+                    }~~~~\tiny{\textrm{OK-BASETYPE}}$
+                    \\
+                    $\frac{
+                        \textbf{rep}~\tau_2
+                    }{
+                    \textbf{rep}~\beta_1 \rightarrow \tau_2
+                    }~~~~\tiny{\textrm{OK-BASEFUNCTION}}
+                    ~~~~~
+                    \frac{
+                        \textbf{rep}~(\tau_1 \stackrel{nr}{\rightarrow}\tau')~~\textbf{rep}~\tau_2
+                    }{
+                        \textbf{rep}~(\tau_1 \stackrel{nr}{\rightarrow}\tau') \stackrel{nr}{\rightarrow} \tau_2
+                    }~~~~\tiny{\textrm{OK-HOFUNCTION}}$
+                    \\
+                    $\frac{
+                        \textbf{rep}~\tau_1\rightarrow \tau_2
+                    }{
+                        \textbf{rep}~(\tau_1\rightarrow \tau_2) \rightarrow\beta
+                    }~~~~\tiny{\textrm{OK-RECFUNCTIONBASE}}
+                    ~~~~~
+                    \frac{
+                        \textbf{rep}~\tau_1 \rightarrow \tau_2~~\textbf{rep}~\tau'_1 \rightarrow \tau'_2
+                    }{
+                        \textbf{rep}~(\tau_1 \rightarrow \tau_2) \rightarrow (\tau'_1 \rightarrow \tau'_2)
+                    }~~~~\tiny{\textrm{OK-RECFUNCTION}}$
+                    \\
+                    \scriptsize{
+                        $ \boxed{\Gamma;\gamma\vdash e:\left\langle \tau, \delta \right\rangle }$}
+                    \\
+%                    $ \frac{
+%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1 \right \rangle 
+%                    }{
+%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1~e_2 \right \rangle 
+%                    }~~~~\tiny{\textrm{E-APP1}}
+%                    ~~~~~
+%                    \frac{
+%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_2 \right \rangle 
+%                    }{
+%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \upsilon~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', \upsilon~e_2 \right \rangle 
+%                    }~~~~\tiny{\textrm{E-APP2}}$
+                \end{center}
+               }
+           }
+\end{spacing}
+\caption{Static semantics for $\lambdaJ$ describing simple type-checking and enforce restriction on scope of nondeterminism and recursion. Recall that $\beta$ refers to base (non-function) types.}
+\label{static-sem-lambdaj}
 \end{figure}
