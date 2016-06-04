@@ -2,3 +2,87 @@
 \label{semantics}
 
 Here is the semantics...
+
+
+\begin{figure}
+     \begin{spacing}{2.0}
+    \fbox{
+        \parbox{\textwidth}{
+            \begin{center}
+                \scriptsize{
+                  $ \boxed{\mathscr{G} \vdash \left \langle \Sigma, \Delta, e \right \rangle \rightarrow \left \langle \Sigma', \Delta', e' \right \rangle }$\\}
+            \end{center}
+            \begin{flushright}
+%                \large{
+                  $ \frac{
+                      \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1 \right \rangle 
+                      }{
+                      \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1~e_2 \right \rangle 
+                      }~~~~\scriptsize{\textrm{E-APP1}}
+                      ~~~~~
+                      \frac{
+                          \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_2 \right \rangle 
+                        }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \upsilon~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', \upsilon~e_2 \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-APP2}}$
+                    \\
+                    $\frac{
+                    }{
+                    \mathscr{G} \vdash \left \langle \Sigma, \Delta, \lambda x.e~\upsilon \right \rangle \rightarrow \left \langle \Sigma', \Delta', e[x\mapsto \upsilon] \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-APPLAMBDA}}
+                    ~~~~
+                    \frac{
+                        c'=c_1~(op)~c_2
+                    }{
+                    \mathscr{G} \vdash \left \langle \Sigma, \Delta, c_1~(op)~c_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', c' \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-OP}}$
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1 \right \rangle 
+                    }{
+                    \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1~(op)~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1~(op)~e_2 \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-OP1}}
+                    ~~~~
+                    \frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_2 \right \rangle 
+                    }{
+                    \mathscr{G} \vdash \left \langle \Sigma, \Delta, \upsilon~(op)~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', \upsilon~(op)~e'_2 \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-OP2}}$
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_c \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_c \right \rangle 
+                    }{
+                    \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if}~e_c~\textbf{then}~e_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{if}~e'_c~\textbf{then}~e_t~\textbf{else}~e_f \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-COND}}$
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_t \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_t \right \rangle 
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if true}~ \textbf{then}~e_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_t \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-CONDTRUE}}$
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_f \right \rangle 
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if false}~\textbf{then}~e_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_f \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-CONDFALSE}}$
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_t \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_t \right \rangle 
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if}~\sigma~\textbf{then}~e_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{if}~\sigma~\textbf{then}~e'_t~\textbf{else}~e_f \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-CONDSYMT}}$
+                    \\
+                    $\frac{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_f \right \rangle 
+                    }{
+                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if}~\sigma~\textbf{then}~\upsilon_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{if}~\sigma~\textbf{then}~\upsilon_t~\textbf{else}~e'_f \right \rangle 
+                    }~~~~\scriptsize{\textrm{E-CONDSYMF}}$                    
+%                }
+           \end{flushright}
+        }
+    }
+\end{spacing}
+    \caption{Dynamic semantics for $\lambdaJ$.}
+    \label{dynamic-sem-lambdaj}
+\end{figure}
