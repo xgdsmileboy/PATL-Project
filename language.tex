@@ -1,7 +1,14 @@
 \section{Language Design}
 \label{language}
  \subsection{Jeeves}
- Here we discribe Jeeves syntax in Figure \ref{jeeve-syntax}. Totally, it contains three types 
+ Jeeves allows the programmer to specify policies explicitly and upon data creation rather than implicitly across the code base. The Jeeves system trusts the programmer to correctly specify policies describing high- and low-confidentiality views of sensitive values and to correctly provide context values characterizing output channels. Figure \ref{jeeve-syntax} shows the jeeves syntax, which looks like a high-level language since it's based on and translated from $\lambdaJ$ described in next subsection.
+
+ Several key words in this syntax tell what Jeeves wants to do and what it is capable of doing. 
+ \begin{itemize}
+ \item \textbf{Level} provides variables the means of abstraction to specify policies incrementally and independently of the sensitive value declaration. Level variables can be constrained directly (by explicitly passing around a level variable) or indirectly (by constraining another level variable when there is a dependency).
+ \item Policies, introduced through \textbf{policy} expressions, provide declarative rules describing when to set a level variable to top or bottom.
+ \item \textbf{Context} construct relieves the programmer of the burden of structuring code to propagate values from the output context to the policies. Statements such as print that release information to the viewer require a context parameter.
+ \end{itemize}
    \begin{figure}[!htbp]
    \fbox{%  
        \parbox{\textwidth}{%  
@@ -36,7 +43,12 @@
     \label{jeeve-syntax}
 \end{figure}
 \subsection{Lambda J}
-    Here we discribe the $\lambdaJ$ language show in Figure \ref{lambdaj-syntax}.\\
+  One interesting thing is the authors don't formally implement Jeeves from the scratch. Instead, they introduce $\lambdaJ$, a simple constraint functional language based on the {\ensuremath{\lambda}}-calculus, and then they show how to translate Jeeves from $\lambdaJ$. Here we describe the $\lambdaJ$ language show in Figure \ref{lambdaj-syntax}.
+
+  Basically, The $\lambdaJ$ language extends the {\ensuremath{\lambda}}-calculus with logical variables. Expressions (e) include the standard {\ensuremath{\lambda}} expressions extended with the \textbf{defer} construct for introducing logic variables, the \textbf{assert} construct for introducing constraints, and the \textbf{concretize} construct for producing concrete values consistent with the constraints. $\lambdaJ$ evaluation produces irreducible values ($\upsilon$), which are either concrete (c) or symbolic ($\sigma$). Concrete values are what one would expect from {\ensuremath{\lambda}}-calculus, while symbolic values are values that cannot be reduced further due to the presence of logic variables. Symbolic values also include the \textbf{context} construct which allows constraints to refer to a value supplied at concretization time. The context variable is an implicit parameter provided in the \textbf{concretize} expression. In the semantics we model the behavior of the context variable as a symbolic value that is constrained during evaluation of concretize. $\lambdaJ$ contains a \textbf{let} rec construct that handles recursive functions in the standard way using \textbf{fix}.
+
+  A novel feature of $\lambdaJ$ is that logic variables are also associated with a default value that serves as a default assumption: this is the assigned value for the logic variable unless it is inconsistent with the constraints. The purpose of default values is to provide some determinism when logic variables are underconstrained.
+
    \begin{figure}[!htbp]
    \fbox{%  
        \parbox{\textwidth}{%  

@@ -1,4 +1,8 @@
 \section*{Introduction}
 \label{intro}
 
-Here is the introduction...
+In current Internet environment, users tend to share more personal data online. This phenomenon makes it increasingly important for applications to protect confidentiality. For existing approaches to achieve privacy control, programmers are forced to ensure compliance by their own efforts, even when both the application and the policies may be evolving rapidly. This can cause considerable burdens to application developers.
+
+This academic paper, called \textit{A Language for Automatically Enforcing Privacy Policies.}\footnote{http://www.cs.cmu.edu/~jyang2/papers/popl088-yang.pdf}, proposes a new programming model that makes the system responsible for automatically producing outputs consistent with programmer-specified policies. This automation makes it easier for programmers to enforce policies specifying how each sensitive value should be displayed in a given context, therefore solves the problem mentioned above. Furthermore, they have implemented this programming model in a new functional constraint language named \textbf{Jeeves}.
+
+We carried out our course project based on this paper. More specifically, we first read and comprehended this paper, including the language design, the semantics, the evaluation and typing rules, the partial property proof and the implementation details as we did in our class. Then we proved the progress and preservation parts which is left out in the paper by ourselves. Finally, we successfully run the implementation codes provided by the authors and wrote our own use cases to understand the implementation details.
