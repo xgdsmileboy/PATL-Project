@@ -161,87 +161,197 @@ Here is the semantics...
             \parbox{\textwidth}{
                 \begin{center}
                     \scriptsize{
-                        $ \boxed{\tau_1<:\tau_2}$ }
-                    \\
+                        $ \boxed{\tau_1<:\tau_2}$}
+                \end{center}
+                \begin{flushright}
                     $ \frac{
                     }{
                         \tau<:\tau
-                    }~~~~\tiny{\textrm{S-REFLEXIVE}}
+                    }~~~~\scriptsize{\textrm{S-REFLEXIVE}}
                     ~~~~~
                     \frac{
                     }{
                         \textbf{int}_c<:\textbf{int}
-                    }~~~~\tiny{\textrm{S-INT}}
+                    }~~~~\scriptsize{\textrm{S-INT}}
                     ~~~~~
                     \frac{
                     }{
                     \textbf{bool}_c<:\textbf{bool}
-                    }~~~~\tiny{\textrm{S-BOOL}}$
+                    }~~~~\scriptsize{\textrm{S-BOOL}}$
                     \\
                     $\frac{
                     }{
                     \tau_1 \stackrel{nr}{\longrightarrow} \tau_2<:\tau_1\rightarrow\tau_2
-                    }~~~~\tiny{\textrm{S-RECFUN}}
+                    }~~~~\scriptsize{\textrm{S-RECFUN}}
                     ~~~~~
                     \frac{
                         \tau'_1<:\tau_1~~\tau_2<:\tau'_2
                     }{
                     \tau_1 \rightarrow \tau_2 <: \tau'_1 \rightarrow \tau'_2
-                    }~~~~\tiny{\textrm{S-FUN}} $
+                    }~~~~\scriptsize{\textrm{S-FUN}} $
                     \\
+                \end{flushright}
+                \begin{center}
                     \scriptsize{
                         $ \boxed{\textbf{rep}~\tau}$}
-                    \\
+                \end{center}
+                \begin{flushright}
                     $ \frac{
                         \textbf{rep}~\tau~~~\tau'<:\tau
                     }{
                         \textbf{rep}~\tau
-                    }~~~~\tiny{\textrm{OK-SUBTYPE}}
+                    }~~~~\scriptsize{\textrm{OK-SUBTYPE}}
                     ~~~~~
                     \frac{
                     }{
                         \textbf{rep}~\beta
-                    }~~~~\tiny{\textrm{OK-BASETYPE}}$
+                    }~~~~\scriptsize{\textrm{OK-BASETYPE}}$
                     \\
                     $\frac{
                         \textbf{rep}~\tau_2
                     }{
                     \textbf{rep}~\beta_1 \rightarrow \tau_2
-                    }~~~~\tiny{\textrm{OK-BASEFUNCTION}}
+                    }~~~~\scriptsize{\textrm{OK-BASEFUNCTION}}
                     ~~~~~
                     \frac{
                         \textbf{rep}~(\tau_1 \stackrel{nr}{\rightarrow}\tau')~~\textbf{rep}~\tau_2
                     }{
                         \textbf{rep}~(\tau_1 \stackrel{nr}{\rightarrow}\tau') \stackrel{nr}{\rightarrow} \tau_2
-                    }~~~~\tiny{\textrm{OK-HOFUNCTION}}$
+                    }~~~~\scriptsize{\textrm{OK-HOFUNCTION}}$
                     \\
                     $\frac{
                         \textbf{rep}~\tau_1\rightarrow \tau_2
                     }{
                         \textbf{rep}~(\tau_1\rightarrow \tau_2) \rightarrow\beta
-                    }~~~~\tiny{\textrm{OK-RECFUNCTIONBASE}}
+                    }~~~~\scriptsize{\textrm{OK-RECFUNCTIONBASE}}
                     ~~~~~
                     \frac{
                         \textbf{rep}~\tau_1 \rightarrow \tau_2~~\textbf{rep}~\tau'_1 \rightarrow \tau'_2
                     }{
                         \textbf{rep}~(\tau_1 \rightarrow \tau_2) \rightarrow (\tau'_1 \rightarrow \tau'_2)
-                    }~~~~\tiny{\textrm{OK-RECFUNCTION}}$
+                    }~~~~\scriptsize{\textrm{OK-RECFUNCTION}}$
                     \\
+                \end{flushright}
+                \begin{center}
                     \scriptsize{
                         $ \boxed{\Gamma;\gamma\vdash e:\left\langle \tau, \delta \right\rangle }$}
-                    \\
-%                    $ \frac{
-%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1 \right \rangle 
-%                    }{
-%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_1~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_1~e_2 \right \rangle 
-%                    }~~~~\tiny{\textrm{E-APP1}}
-%                    ~~~~~
-%                    \frac{
-%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_2 \right \rangle 
-%                    }{
-%                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, \upsilon~e_2 \right \rangle \rightarrow \left \langle \Sigma', \Delta', \upsilon~e_2 \right \rangle 
-%                    }~~~~\tiny{\textrm{E-APP2}}$
                 \end{center}
+                \begin{flushright}
+                    $ \frac{
+                        x\in \Gamma
+                    }{
+                        \Gamma;\gamma\vdash x:\Gamma(x)
+                    }~~~~\scriptsize{\textrm{T-VAR}}
+                    ~~~~~
+                    \frac{
+                    }{
+                        \Gamma;\gamma\vdash n:\textbf{int}_c
+                    }~~~~\scriptsize{\textrm{T-INT}}
+                    ~~~~~
+                    \frac{
+                    }{
+                    \Gamma;\gamma\vdash b:\textbf{bool}_c
+                    }~~~~\scriptsize{\textrm{T-BOOL}}
+                    ~~~~~
+                    \frac{
+                    }{
+                    \Gamma;\gamma\vdash ():\textbf{unit}
+                    }~~~~\scriptsize{\textrm{T-UNIT}}$
+                    \\
+                    $\frac{
+                        \textbf{rep}~\tau
+                    }{
+                    \Gamma;\gamma\vdash \textbf{context}~\tau :\tau
+                    }~~~~\scriptsize{\textrm{T-CONTEXT}}
+                    ~~~~~
+                    \frac{
+                        \Gamma;\gamma\vdash e_1 :\tau_1~~
+                        \Gamma;\gamma\vdash e_2 :\tau_2~~
+                        \tau_1,\tau_2 <:\tau~~
+                        \textbf{rep}~\tau
+                    }{
+                        \Gamma;\gamma\vdash e_1~(op)~e_2 :\tau
+                    }~~~~\scriptsize{\textrm{T-OP}}$
+                    \\
+                    $ \frac{
+                        \Gamma;\gamma\vdash e :\textbf{bool}_c~~
+                        \Gamma;\gamma\vdash e_t :\tau_1~~
+                        \Gamma;\gamma\vdash e_f :\tau_2~~
+                        \tau_1,\tau_2 <:\tau~~
+                        \textbf{rep}~\tau
+                    }{
+                    \Gamma;\gamma\vdash \textbf{if}~e~\textbf{then}~e_t~\textbf{else}~e_f :\tau
+                }~~~~\scriptsize{\textrm{T-CONDC}}$
+                \\
+                $ \frac{
+                     \Gamma;\gamma\vdash e :\textbf{bool}~~
+                     \Gamma;\textbf{sym} \vdash e_t :\beta_1~~
+                     \Gamma;\textbf{sym} \vdash e_f :\beta_2~~
+                      \beta_1,\beta_2 <:\beta_c~~
+                     \textbf{rep}~\beta_c
+                    }{
+                    \Gamma;\gamma\vdash \textbf{if}~e~\textbf{then}~e_t~\textbf{else}~e_f :\beta_c
+                }~~~~\scriptsize{\textrm{T-CONDSYM}}$
+                \\
+                $ \frac{
+                    \Gamma,x:\tau_d;\gamma\vdash e :\tau'~~
+                    \textbf{rep}~\tau_d~~
+                    \textbf{rep}~\tau'
+                }{
+                    \Gamma;\gamma\vdash (\lambda x:\tau_d.e):\tau_d\rightarrow \tau'
+                }~~~~\scriptsize{\textrm{T-LAMBDA}}
+                ~~~~~
+                 \frac{
+                     \Gamma;\gamma\vdash e_1:\tau_1\stackrel{nr}{\rightarrow}\tau_2~~
+                     \Gamma,x:\tau_d;\gamma\vdash e_2 :\tau'_1~~
+                     \tau'_1<:\tau_1~~
+                     \textbf{rep}~\tau_1~~
+                     \textbf{rep}~\tau_2
+                    }{
+                    \Gamma;\gamma\vdash (e_1~e_2):\tau_2
+                }~~~~\scriptsize{\textrm{T-APP}}$
+                \\
+                $\frac{
+                    \Gamma,f:\tau_1 \rightarrow \tau_2 ;\gamma\vdash e_1:\tau_1 \rightarrow \tau_2~~
+                    \Gamma,f:\tau_1 \stackrel{nr}{\rightarrow} \tau_2 ;\gamma\vdash e_2:\tau_2~~
+                    \textbf{rep}~\tau~~
+                    \textbf{rep}~\tau_2
+                }{
+                    \Gamma;\gamma\vdash \textbf{let rec}~f:\tau_1 \stackrel{nr}{\rightarrow} \tau_2=e_1~\textbf{in}~e_2:\tau_2
+                }~~~~\scriptsize{\textrm{T-APPLETREC}}$
+                \\
+                $\frac{
+                    \gamma=\textbf{concrete}~~
+                    \Gamma;\gamma\vdash e_1:\tau_1 \rightarrow \tau_2~~
+                    \Gamma;\gamma\vdash e_2:\tau'_1~~
+                    \tau'_1<:\tau_1~~
+                    \textbf{rep}~\tau_1~~
+                    \textbf{rep}~\tau_2
+                }{
+                    \Gamma;\gamma\vdash (e_1~e_2):\tau_2
+                }~~~~\scriptsize{\textrm{T-APPCURREC}}$
+                 \\
+                 $ \frac{
+                     \Gamma,x:\beta;\gamma\vdash e_c :\textbf{bool}~~
+                     \Gamma;\gamma\vdash \upsilon :\beta
+                    }{
+                        \Gamma;\gamma\vdash (\textbf{defer} x:\beta\{e_c\}~\textbf{default}~\upsilon):\beta
+                    }~~~~\scriptsize{\textrm{T-DEFER}}
+                    ~~~~~
+                    \frac{
+                        \Gamma;\gamma\vdash e_c:\textbf{bool}~~
+                    }{
+                        \Gamma;\gamma\vdash (\textbf{assert}~e_c):\textbf{unit}
+                    }~~~~\scriptsize{\textrm{T-ASSERT}}$
+                    \\
+                    $\frac{
+                        \Gamma;\gamma\vdash e_1:\beta~~
+                        \Gamma;\gamma\vdash^{c} e_1:\beta'~~
+                        \Gamma;\gamma\vdash \upsilon:\beta'
+                    }{
+                    \Gamma;\gamma\vdash (\textbf{concretize}~e_1~\textbf{with}~\upsilon):\beta_c
+                }~~~~\scriptsize{\textrm{T-CONCRETIZE}}$
+                \end{flushright}
                }
            }
 \end{spacing}
