@@ -1,7 +1,17 @@
 \section{Semantics}
 \label{semantics}
 
-Here is the semantics...
+The semantics are divided into two parts: dynamic and static. Dynamic semantic is the same as the evaluation rules in our class, while static semantic includes but not limited to the typing rules. The static semantic also includes some rules to rule out the infinite recursive calling that may be caused by the logical variables introduced by $\lambdaJ$.
+
+As shown in Figure \ref{dynamic-sem-lambdaj}, the $\lambdaJ$ evaluation rules extend {\ensuremath{\lambda}}-calculus evaluation with constraint propagation and symbolic evaluation of logic variables. Evaluation involves keeping track of constraints which are required to be true (hard constraints) and the set of constraints we use for guidance if consistent with our hard constraints (default assumptions). To correctly evaluate conditionals with symbolic conditions, we also need to keep track of the (possibly symbolic) path condition ($\mathscr{G}$). Here, $\Sigma~$stores the current set of constraints, and an environment $\Delta~$stores the set of constraints on default values for logic variables. The rules are no surprising, quite similar to the rules learned in our class. One interesting thing is when evaluating under symbolic conditions, because evaluation of such conditionals with a recursive function application in a branch could lead to infinite recursion when the condition is symbolic. $\lambdaJ$ prevents this anomalous behavior by using the type system.
+
+Static semantic, as shown in Figure \ref{static-sem-lambdaj}, describes simple type-checking and enforce restriction on scope of nondeterminism and recursion. The types are defined in Figure \ref{lambdaj-types}. The largest difference of typing rules between the normal {\ensuremath{\lambda}}-calculus and $\lambdaJ$ is the symbolic values. For int, bool or if expression, it can have two options: concrete or symbolic. And therefore the issue comes when applying reentrant functions under symbolic conditionals. To rule out such kind of cases, $\lambdaJ$ explicitly marks values as concrete or symbolic. For example, a function that might be reentrant should be marked as ($\longrightarrow$). Furthermore, it introduces \textbf{rep}, defined as a predicate that requires that functions taking arguments that may be reentrant be themselves labeled as reentrant. This can help prevent high-order functions from being used to circumvent the restrictions on reentrant calls. Overall, the static semantics can guarantee that
+\begin{itemize}
+\item concrete values are supplied when concrete values are expected,
+\item symbolic values are well-formed,
+\item evaluation under symbolic conditions does not cause unexpected infinite recursion,
+\item context values have the appropriate types.
+\end{itemize}
 
 
 \begin{figure}
