@@ -9,10 +9,20 @@
     \end{proof}
  
  \begin{theorem}
-     $\mathrm{(Progress).}$ Suppose $e$ is a closed, well-typed expression. Then $e$ is either a value $\upsilon$ or there is some $e'$ such that $\vdash\left\langle\phi ,\phi ,e\right\rangle\rightarrow\left\langle\Sigma',\Delta',e'\right\rangle$.
+     $\mathrm{(Progress).}$ Suppose $e$ is a closed, well-typed expression. Then $e$ is either a value $\upsilon$ or there is some $e'$ such that $\vdash\left\langle\Sigma, \Delta, e\right\rangle\rightarrow\left\langle\Sigma',\Delta',e'\right\rangle$.
  \end{theorem}   
     \begin{proof}
-        we can ...
+        According to the dynamic demantics \ref{dynamic-sem-lambdaj} and static semantics \ref{static-sem-lambdaj} of $\lambdaJ$, we will proof that any $\lambdaJ$ program holds the \emph{progress} property by structral induction over the syntax of $\lambdaJ$. According to Figure \ref{lambdaj-syntax}, there are nine kinds of expressions including the value expression $\upsilon$. Next we discuss each of them respectively.
+        \begin{itemize}
+            \item For the value expression $\upsilon$, according to the definition we can conclude that it holds the property immediately.
+            \item For the expression $e_1~(op)~e_2$, according to the hyposthesis, we know that sub-expression $e_1$ and $e_2$ are both closed and well-typed expressions. Thus if $e_1$ is not a value, according to E-OP1, there must be a expression $e'_1$ such that $e_1\rightarrow e'_1$. Therefore the expression $e_1~(op)~e_2$ can be reduced to $e'_1~(op)~e_2$, and the same as if the $e_1$ is already a value but $e_2$ is not according to E-OP2. While if both $e_1$ and $e_2$ are values, we know that $e_1~(op)~e_2$ is a value as well. Let $c = e_1~(op)~e_2$, according to E-OP, $\vdash\left\langle\Sigma, \Delta, e_1~(op)~e_2 \right\rangle\rightarrow\left\langle\Sigma',\Delta',c \right\rangle$. Hence, we can conclude that expression $e_1~(op)~e_2$ holds the \emph{progress} property.
+            \item For the expression $\textbf{if}~e_1~\textbf{then}~e_t~\textbf{else}~e_f$, the conditional expression $e_1$ is a either a \textbf{concrete} expression or a \textbf{symbolic} expression. If expression $e_1$ is \textbf{concrete} and not a value, according to E-COND, there must be an expression $e'_1$ such that $\vdash\left\langle\Sigma, \Delta, \textbf{if}~e_1~\textbf{then}~e_t~\textbf{else}~e_f \right\rangle\rightarrow\left\langle\Sigma',\Delta',\textbf{if}~e'_1~\textbf{then}~e_t~\textbf{else}~e_f \right\rangle$.  Similarly, if expression $e_1$ is a \textbf{conceret} value, it must be \textbf{true} or \textbf{false}. According to E-CONDTRUE and E-CONDFALSE, $\textbf{if}~e_1~\textbf{then}~e_t~\textbf{else}~e_f$ can be reduced as well. On the other hand, if the expression $e_1$ is \textbf{symbolic}, according to E-CONDSYMT and E-CONDSYMF, it holds the \emph{progress} property.
+            \item For the expression $e_1~e_2$, if the sub-expression $e_1$ or $e_2$ is not a value, similar as the expression $e_1~(op)~e_2$, according to E-APP1 and E-APP2, it can be at least reduce one step and evetually both $e_1$ and $e_2$ are values. Then according to the previous \textbf{Concrete Function Lemma}, $e_1~e_2$ must be the form as $\lambda x:e.\upsilon$, according to E-APPLAMBDA, it holds the property immediately.
+            \item For the expression $\textbf{defer}~x:\tau\{e\}~\textbf{default}~\upsilon_d$, if sub-expression $e$ is not a value, by the induction hypothesis, there must be an expression $e' $ such that $\vdash\left\langle\Sigma, \Delta, e\right\rangle\rightarrow\left\langle\Sigma',\Delta',e'\right\rangle$, then by E-DEFERCONSTRAINT, the expression can be perform a reduction $\vdash\left\langle\Sigma, \Delta, \textbf{defer}~x: \tau\{e\}~\textbf{default}~\upsilon_d \right\rangle\rightarrow\left\langle\Sigma',\Delta',\textbf{defer}~x:\tau\{e'\}~\textbf{default}~\upsilon_d\right\rangle$
+            \item For the expression $\textbf{assert}~e$,
+            \item For the expression $\textbf{concretize}~e~\textbf{with}~\upsilon_c$,
+            \item For the expression $\textbf{let}~x:\tau=e_1~\textbf{in}~e_2$ and $\textbf{let rec}~f:\tau=e_1~\textbf{in}~e_2$, expressions $e_1$ and $e_2$ are composed by one ore more above expressions. Thus, it holds the property accordingly.
+        \end{itemize}
     \end{proof}
     
     \begin{theorem}
