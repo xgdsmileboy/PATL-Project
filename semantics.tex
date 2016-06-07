@@ -98,7 +98,7 @@ Static semantic, as shown in Figure \ref{static-sem-lambdaj}, describes simple t
                     $\frac{
                         fresh~x'
                      }{
-                         \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{defer}~x:\tau\{e\}~\textbf{default}~\upsilon_d \right \rangle \rightarrow \left \langle \Sigma\cup\{\mathscr{G}\Rightarrow\upsilon_c[x\mapsto x']\}, \Delta\cup\{\mathscr{G}\Rightarrow x'=\upsilon_d \}, x' \right \rangle 
+                         \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{defer}~x:\tau\{\upsilon_c\}~\textbf{default}~\upsilon_d \right \rangle \rightarrow \left \langle \Sigma\cup\{\mathscr{G}\Rightarrow\upsilon_c[x\mapsto x']\}, \Delta\cup\{\mathscr{G}\Rightarrow x'=\upsilon_d \}, x' \right \rangle 
                      }~~~~\scriptsize{\textrm{E-DEFER}}$       
                     \\
                     $\frac{
