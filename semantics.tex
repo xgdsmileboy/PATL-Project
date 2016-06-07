@@ -78,13 +78,13 @@ Static semantic, as shown in Figure \ref{static-sem-lambdaj}, describes simple t
                     }~~~~\scriptsize{\textrm{E-CONDFALSE}}$
                     \\
                     $\frac{
-                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_t \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_t \right \rangle 
+                        \sigma\wedge\mathscr{G} \vdash \left \langle \Sigma, \Delta, e_t \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_t \right \rangle 
                     }{
                         \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if}~\sigma~\textbf{then}~e_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{if}~\sigma~\textbf{then}~e'_t~\textbf{else}~e_f \right \rangle 
                     }~~~~\scriptsize{\textrm{E-CONDSYMT}}$
                     \\
                     $\frac{
-                        \mathscr{G} \vdash \left \langle \Sigma, \Delta, e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_f \right \rangle 
+                        \neg\sigma\wedge\mathscr{G} \vdash \left \langle \Sigma, \Delta, e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', e'_f \right \rangle 
                     }{
                         \mathscr{G} \vdash \left \langle \Sigma, \Delta, \textbf{if}~\sigma~\textbf{then}~\upsilon_t~\textbf{else}~e_f \right \rangle \rightarrow \left \langle \Sigma', \Delta', \textbf{if}~\sigma~\textbf{then}~\upsilon_t~\textbf{else}~e'_f \right \rangle 
                     }~~~~\scriptsize{\textrm{E-CONDSYMF}}$          
